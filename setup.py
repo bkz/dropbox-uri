@@ -14,7 +14,7 @@ if sys.platform == "win32":
         author_email = "babar.zafar@gmail.com",
         url = "https://github.com/bkz",
         long_description = "n/a",
-        console = [{"dest_base": "dropbox", "script": "main.py"}],
+        windows = [{"dest_base": "dropbox", "script": "main.py"}],
         data_files = [("", ["dropbox.ico", "platform.dll"])],
         zipfile = None,
         options = {
