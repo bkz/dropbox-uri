@@ -1,0 +1,64 @@
+*Work in progress*
+
+This is a proof of concept prototype which implements a URI sharing mechanism
+for Dropbox shared folders. In a team environment you often want to share links
+to items in shared folders but Dropbox makes this task pretty annoying. You
+have to manually type or copy and paste paths in emails or via IM and then
+manually navigate to the item of interest.
+
+Design goals
+
+  - Sender should be able to navigate to a shared folder, select a sub-set of
+    items (files and folders) and be able share a set of links via Gmail.
+
+  - Reciever should be able to click on a link and securely be navigated to the
+    matching item independent of how he/she has mounted the shared folder.
+
+After installation you can right-click on an item (or multiple ones) in a
+shared folder, navigate to the "Send To" menu and select "Copy Dropbox
+URI". This will place HTML URIs which you can paste in emails or share via
+IM. Team-members who have installed the program will be able to click on a link
+and a new Explorer/Finder window will open with the item selected. By not
+opening the item automatically we trade security for some clutter (multiple
+windows will open) and speed (hitting RETURN is pretty fast though).
+
+The prototype currently only works on Windows, an OS X port is planned if there
+is interest. I would very happy if the Dropbox team implemented something
+similar, especially since they've released the Team product for which this
+would be awesome. Feel free to steal the idea :)
+
+Disclaimer: I don't want to distribute binaries for public usage unless the
+Dropbox teams is OK. Read the code (not that complicated) and decide for
+yourself if you want to use this.
+
+Installation:
+
+  Copy the platform wapper library and place "platform.dll" in the same folder
+  as the main.py script. You can optionally install Py2Exe and build an
+  executable, the program does however work perfectly fine using the Python
+  interpreter if you have it installed (Python 2.7).
+
+  From an admin prompt run:
+
+  python main.py [/install] [/uninstall]
+
+  OR
+
+  dropbox.exe [/install] [/uninstall]
+
+Usage:
+
+  - Right-click on item in a shared folder, navigate to the "Send To" menu and
+    select "Copy Dropbox URI". Links are generated and placed in the clipboard.
+
+  - Paste the clipboard content in Gmail or your IM client.
+
+  - Clicking on Dropbox URI will open a new Explorer/Finder windows which has
+    the item selected.
+
+Techincal:
+
+The prototype should handle shared folders properly as it creates the URI by
+combining the namespace ID from the mount_table and a relative path for the
+item. During lookup the full path is simply reconstructed from the namespace
+and relative path. Unicode paths should also be handled correctly.
