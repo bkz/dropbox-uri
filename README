@@ -4,7 +4,10 @@ This is a proof of concept prototype which implements a URI sharing mechanism
 for Dropbox shared folders. In a team environment you often want to share links
 to items in shared folders but Dropbox makes this task pretty annoying. You
 have to manually type or copy and paste paths in emails or via IM and then
-manually navigate to the item of interest.
+manually navigate to the item of interest. The experimental "Get Shareable
+Link" is pretty broken as well since it requires you to re-download the item
+much like the Public folder sharing feature while also making the linked item
+item available to anyone who as access to the URL.
 
 Design goals
 
@@ -13,6 +16,12 @@ Design goals
 
   - Reciever should be able to click on a link and securely be navigated to the
     matching item independent of how he/she has mounted the shared folder.
+
+  - Reciever should only be able to access the linked item if he/she has access
+    to shared folder.
+
+  - Reciever should not have to download the item multiple times, if the item
+    is available locally he/she will be able to access it via a suitable link.
 
 After installation you can right-click on an item (or multiple ones) in a
 shared folder, navigate to the "Send To" menu and select "Copy Dropbox
