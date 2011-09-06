@@ -72,3 +72,13 @@ The prototype should handle shared folders properly as it creates the URI by
 combining the namespace ID from the mount_table and a relative path for the
 item. During lookup the full path is simply reconstructed from the namespace
 and relative path. Unicode paths should also be handled correctly.
+
+A shareable URI basically looks something like this:
+
+dropbox:Njk1NDEzM3xcQXZzdMOkbmduaW5nXFRlc3TDhMOWw4Vc2KfZhNi52LHYqNmKLnR4dA
+
+The "dropbox:" part is the protocol handler which is registered with the OS, it
+allows browsers and other applications to trigger our program (handler) so that
+we can look up the item and possible navigate to it. The remaning stuff is
+basically base64(shared folder namespace id, item relative path) which we use
+to determine to correct path.
