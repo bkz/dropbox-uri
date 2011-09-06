@@ -9,7 +9,7 @@ Link" is pretty broken as well since it requires you to re-download the item
 much like the Public folder sharing feature while also making the linked item
 available to anyone who has access to the URL.
 
-Design goals
+Design goals:
 
   - Sender should be able to navigate to a shared folder, select a sub-set of
     items (files and folders) and be able share a set of links via Gmail.
@@ -36,9 +36,21 @@ is interest. I would be very happy if the Dropbox team implemented something
 similar, especially since they've released the Team product for which this
 would be awesome. Feel free to steal the idea :)
 
-Disclaimer: I don't want to distribute binaries for public usage unless the
-Dropbox teams is OK with this. Read the code (not that complicated) and decide
-for yourself if you want to use this.
+Example:
+
+Pasting a Dropbox URI would result in something like this (simplified):
+
+  <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Shared/Folder/Item.ext</a>
+
+Clicking on a link like this would trigger a local executable which is
+registered to handle the URI type, in our case we'll parse the link and
+navigate to the item in corresponding shared folder.
+
+Disclaimer:
+
+I don't want to distribute binaries for public usage unless the Dropbox team is
+OK with this. Read the code (not that complicated) and decide for yourself if
+you want to use this.
 
 Installation:
 
@@ -75,7 +87,7 @@ and relative path. Unicode paths should also be handled correctly.
 
 A shareable URI basically looks something like this:
 
-dropbox:Njk1NDEzM3xcQXZzdMOkbmduaW5nXFRlc3TDhMOWw4Vc2KfZhNi52LHYqNmKLnR4dA
+  dropbox:Njk1NDEzM3xcQXZzdMOkbmduaW5nXFRlc3TDhMOWw4Vc2KfZhNi52LHYqNmKLnR4dA
 
 The "dropbox:" part is the protocol handler which is registered with the OS, it
 allows browsers and other applications to trigger our program (handler) so that
