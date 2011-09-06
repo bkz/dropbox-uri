@@ -23,20 +23,20 @@ opening the item automatically we trade security for some clutter (multiple
 windows will open) and speed (hitting RETURN is pretty fast though).
 
 The prototype currently only works on Windows, an OS X port is planned if there
-is interest. I would very happy if the Dropbox team implemented something
+is interest. I would be very happy if the Dropbox team implemented something
 similar, especially since they've released the Team product for which this
 would be awesome. Feel free to steal the idea :)
 
 Disclaimer: I don't want to distribute binaries for public usage unless the
-Dropbox teams is OK. Read the code (not that complicated) and decide for
-yourself if you want to use this.
+Dropbox teams is OK with this. Read the code (not that complicated) and decide
+for yourself if you want to use this.
 
 Installation:
 
-  Copy the platform wapper library and place "platform.dll" in the same folder
+  Build and copy the platform wapper library "platform.dll" to the same folder
   as the main.py script. You can optionally install Py2Exe and build an
   executable, the program does however work perfectly fine using the Python
-  interpreter if you have it installed (Python 2.7).
+  interpreter if you have it installed (Win32/64 Python 2.7).
 
   From an admin prompt run:
 
@@ -48,13 +48,14 @@ Installation:
 
 Usage:
 
-  - Right-click on item in a shared folder, navigate to the "Send To" menu and
-    select "Copy Dropbox URI". Links are generated and placed in the clipboard.
+  - Right-click on an item in a shared folder, navigate to the "Send To" menu
+    and select "Copy Dropbox URI". Links are generated and placed in the
+    clipboard.
 
   - Paste the clipboard content in Gmail or your IM client.
 
-  - Clicking on Dropbox URI will open a new Explorer/Finder windows which has
-    the item selected.
+  - Clicking on a Dropbox link (URI) will open a new Explorer/Finder windows
+    which has the item selected.
 
 Techincal:
 

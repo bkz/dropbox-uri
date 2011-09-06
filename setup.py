@@ -9,7 +9,7 @@ if sys.platform == "win32":
     setup(
         name = "Dropbox Copy URI",
         version = "0.1",
-        description = "Utilitie for sharing URIs for items in shared Dropbox folders.",
+        description = "Utility for sharing URIs for items in shared Dropbox folders.",
         author = "Babar K. Zafar",
         author_email = "babar.zafar@gmail.com",
         url = "https://github.com/bkz",
