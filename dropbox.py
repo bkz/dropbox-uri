@@ -2,10 +2,20 @@ import os, sys
 import logging
 import sqlite3
 
-import platform
-
 PROGRAM_TITLE = "Copy Dropbox URI"
 PROTOCOL_URI_PREFIX = "dropbox:"
+
+###########################################################################
+# Platform abstraction layer.
+###########################################################################
+
+if sys.platform == "win32":
+    import platform_win32 as platform
+elif sys.platform == "darwin":
+    import platform_osx as platform
+else:
+    raise NotImplementedError("Unsupported platform")
+
 
 ###########################################################################
 # Exceptions
@@ -130,6 +140,7 @@ def main(rootdir, is_frozen, script_path):
         import traceback
         stacktrace = traceback.format_exc()
         platform.show_error_message(PROGRAM_TITLE, stacktrace)
+        logging.exception("Unhandled exception")
 
 
 ###########################################################################
