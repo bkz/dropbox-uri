@@ -10,8 +10,14 @@ def setup_logfile(rootdir, is_frozen, logname):
     logging.getLogger().setLevel(logging.DEBUG)
     if not is_frozen:
         logging.getLogger().addHandler(logging.StreamHandler())
+    if sys.platform == "win32":
+        logfile = os.path.join(rootdir, logname)
+    elif sys.platform == "darwin":
+        logfile = os.path.join(os.path.expanduser("~/Library/Logs"), logname)
+    else:
+        raise NotImplementedError("Unsupported platform")
     filelogger = logging.handlers.RotatingFileHandler(
-        os.path.join(rootdir, logname), maxBytes=512*1024)
+        logfile, maxBytes=512*1024)
     filelogger.setFormatter(logging.Formatter("%(asctime)s : %(message)s"))
     logging.getLogger().addHandler(filelogger)
 
@@ -26,12 +32,12 @@ if __name__ == '__main__':
 
         rootdir = unicode(rootdir, encoding=sys.getfilesystemencoding())
 
-        if is_frozen:
+        if is_frozen and sys.platform == "win32":
             script_path = None
         else:
             script_path = os.path.join(rootdir, sys.argv[0])
 
-        setup_logfile(rootdir, is_frozen, 'debug.log')
+        setup_logfile(rootdir, is_frozen, 'dropbox_uri.log')
 
         os.chdir(rootdir)
 
