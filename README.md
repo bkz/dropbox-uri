@@ -37,7 +37,7 @@ issues.
 ## Example:
 
   - Right clicking on ~/Dropbox/Shared/Folder/Item.ext woud generate a Dropbox
-    URI similar to this which you can paste into an email: 
+    URI similar to this which you can paste into an email:
 
     [/Folder/Item.ext](#) -> dropbox:fhksd838ejsfg3g3489ffh38hf
 
@@ -62,12 +62,12 @@ implement this feature for everyone :)
   Add a menu-item to the Finder right-click menu for generating Dropbox URIs
   using Automator (screenshots [1][s1] and [2][s2]):
 
-  - Launch Automator, create new service, from the "Library" choose "Utilities" 
+  - Launch Automator, create new service, from the "Library" choose "Utilities"
     and drag and drop "Run shell script" to the workflow.
 
   - Set "Services recieves selected" to "files and folders" and limit the
-    applications to "Finder". In the "Run Shell Script" pane set "pass input" 
-    to "as arguments" and paste the following line into text area (change the 
+    applications to "Finder". In the "Run Shell Script" pane set "pass input"
+    to "as arguments" and paste the following line into text area (change the
     path if needed):
 
       open -a /Applications/DropboxURI.app "$@"
