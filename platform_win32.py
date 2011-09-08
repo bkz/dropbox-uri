@@ -53,7 +53,7 @@ _is_admin = CDLL(shared_lib).is_admin
 _is_admin.restype = c_int
 _is_admin.argtypes = []
 
-def _create_shortcut(source, destination, workdir=None, args=None, tooltip=None, iconpath=None, iconindex=0):
+def create_shortcut(source, destination, workdir=None, args=None, tooltip=None, iconpath=None, iconindex=0):
     """
     Create a shortcut link to launch the executable or script ``source``. The
     shortcut will be saved to ``destination`` which should be a fully qualified
