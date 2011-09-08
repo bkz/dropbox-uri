@@ -1,5 +1,6 @@
 import os, sys
 import logging
+import shutil
 import sqlite3
 
 PROGRAM_TITLE = "Copy Dropbox URI"
@@ -79,15 +80,24 @@ def explore_dropbox(shared_folders, uri):
         if namespace == uri_namespace:
             filename = os.path.join(shared_path, uri_path[1:])
             if os.path.exists(filename):
+                logging.debug("Exploring: %s" % filename.encode("utf-8"))
                 platform.explore_path(filename)
                 break
     else:
-        raise DropboxWarning("Could not locate shared file")
+        raise DropboxWarning("Could not locate shared file: %s" % filename.encode("utf-8"))
 
 
 def encode_dropbox_uri(namespace, path):
     data = u"%s|%s" % (namespace, path)
-    return PROTOCOL_URI_PREFIX + uri_b64encode(data.encode("utf-8"))
+    return uri_b64encode(data.encode("utf-8"))
+
+
+def is_valid_dropbox_uri(s):
+    if arg.startswith(PROTOCOL_URI_PREFIX):
+        uri = uri[len(PROTOCOL_URI_PREFIX):]
+        return re.match(r"^[a-z0-9_\-]+$", uri, re.I) != None
+    else:
+        return False
 
 
 ###########################################################################
@@ -112,16 +122,17 @@ def main(rootdir, is_frozen, script_path):
         clipboard_html, clipboard_text = [], []
 
         for arg in platform.get_argv(script_path):
-            if arg.startswith(PROTOCOL_URI_PREFIX):
+            if is_valid_dropbox_uri(arg):
                 explore_dropbox(shared_folders, arg)
                 continue
             if not os.path.exists(arg):
+                logging.debug("Invalid argument: %s" % arg.encode("utf-8"))
                 continue
             for (namespace, shared_path) in shared_folders:
                 if arg.lower().startswith(shared_path):
                     rel_path = arg[len(shared_path):]
                     uri = encode_dropbox_uri(namespace, rel_path)
-                    clipboard_html.append(u"<a href='%s'>%s</a>" % (uri, rel_path))
+                    clipboard_html.append(u"<a href='http://www.sharedropbox.com?%s'>%s</a>" % (uri, rel_path))
                     clipboard_text.append(uri)
                     break
             else:
