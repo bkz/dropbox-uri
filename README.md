@@ -1,5 +1,7 @@
 *Work in progress*
 
+## Overview
+
 This is a proof of concept prototype which implements a URI sharing mechanism
 for Dropbox shared folders. In a team environment you often want to share links
 to items in shared folders but Dropbox makes this task pretty annoying. You
@@ -37,7 +39,7 @@ issues.
   - Right clicking on ~/Dropbox/Shared/Folder/Item.ext woud generate a Dropbox
   URI similar to this which you can paste into an email:
 
-  <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Folder/Item.ext</a>
+    <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Folder/Item.ext</a>
 
   - Clicking on this link will locate the shared folder on the reciever end and
   select the mathcing file or directory.
@@ -60,14 +62,13 @@ implement this feature for everyone :)
   Add a menu-item to the Finder right-click menu for generating Dropbox URIs
   using Automator:
 
-  - Launch Automator, create new service, from the "Library" choose "Utilities"
-    and drag and drop "Run shell script" to the workflow.
+  - Launch Automator, create new service [screenshot][s1], from the "Library" 
+    choose "Utilities" and drag and drop "Run shell script" to the workflow.
 
   - Set "Services recieves selected" to "files and folders" and limit the
-    applications to "Finder".
-
-  - In the "Run Shell Script" pane set "pass input" to "as arguments" and paste
-    the following line into text area (change the path if needed):
+    applications to "Finder". In the "Run Shell Script" pane set "pass input" 
+    to "as arguments" and paste the following line into text area (change the 
+    path if needed) [screenshot][s2]:
 
       open -a /Applications/DropboxURI.app "$@"
 
@@ -116,7 +117,7 @@ and relative path. Unicode paths should also be handled correctly.
 
 A shareable URI basically looks something like this:
 
-  dropbox:Njk1NDEzM3xcQXZzdMOkbmduaW5nXFRlc3TDhMOWw4Vc2KfZhNi52LHYqNmKLnR4dA
+    dropbox:Njk1NDEzM3xcQXZzdMOkbmduaW5nXFRlc3TDhMOWw4Vc2KfZhNi52LHYqNmKLnR4dA
 
 The "dropbox:" part is the protocol handler which is registered with the OS, it
 allows browsers and other applications to trigger our program (handler) so that
@@ -125,3 +126,6 @@ basically base64(shared folder namespace id, item relative path) which we use
 to determine to correct path.
 
 ## The End.
+
+[s1]: https://github.com/bkz/dropbox-uri/raw/master/doc/osx1.png
+[s2]: https://github.com/bkz/dropbox-uri/raw/master/doc/osx2.png
