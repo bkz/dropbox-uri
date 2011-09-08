@@ -4,10 +4,10 @@ This is a proof of concept prototype which implements a URI sharing mechanism
 for Dropbox shared folders. In a team environment you often want to share links
 to items in shared folders but Dropbox makes this task pretty annoying. You
 have to manually type or copy and paste paths in emails or via IM and then
-manually navigate to the item of interest. The experimental "Get Shareable
-Link" is pretty broken as well since it requires you to re-download the item
-much like the Public folder sharing feature while also making the linked item
-available to anyone who has access to the URL.
+manually navigate to the items of interest. The experimental "Get Shareable
+Link" is pretty broken as well since it gives you a (public!) shortened URL
+which will re-download the item instead of pointing directly to copy you
+already have in your local Dropbox folder.
 
 Design goals:
 
@@ -23,51 +23,80 @@ Design goals:
   - Reciever should not have to download the item multiple times, if the item
     is available locally he/she will be able to access it via a suitable link.
 
-After installation you can right-click on an item (or multiple ones) in a
-shared folder, navigate to the "Send To" menu and select "Copy Dropbox
-URI". This will place HTML URIs which you can paste in emails or share via
-IM. Team-members who have installed the program will be able to click on a link
-and a new Explorer/Finder window will open with the item selected. By not
-opening the item automatically we trade security for some clutter (multiple
-windows will open) and speed (hitting RETURN is pretty fast though).
-
-The prototype currently only works on Windows, an OS X port is planned if there
-is interest. I would be very happy if the Dropbox team implemented something
-similar, especially since they've released the Team product for which this
-would be awesome. Feel free to steal the idea :)
+This prototype implements a very simple mechanism which allows you to
+right-click on files and directories in shared folders and generate Dropbox
+URIs, "HTML links" which are saved to the clipboard ready to be pasted into
+Gmail or your IM client. Team-members who have installed the program will be
+able to click on such links and a new Finder/Explorer window will open with the
+item selected. Note: we won't execute or open the selected item with its
+associated program to keep things simple and not introduce possible security
+issues.
 
 Example:
 
-Pasting a Dropbox URI would result in something like this (simplified):
+  - Right clicking on ~/Dropbox/Shared/Folder/Item.ext woud generate a Dropbox
+  URI similar to this which you can paste into an email:
 
-  <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Shared/Folder/Item.ext</a>
+  <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Folder/Item.ext</a>
 
-Clicking on a link like this would trigger a local executable which is
-registered to handle the URI type, in our case we'll parse the link and
-navigate to the item in corresponding shared folder.
+  - Clicking on this link will locate the shared folder on the reciever end and
+  select the mathcing file or directory.
 
 Disclaimer:
 
-I don't want to distribute binaries for public usage unless the Dropbox team is
-OK with this. Read the code (not that complicated) and decide for yourself if
-you want to use this.
+Binaries are available but you should really build this yourself, I'm not that
+keen on maintaing this for public usage. I'd rather have the Dropbox team
+implement this feature for everyone :)
 
-Installation:
+OSX installation:
 
-  Build and copy the platform wapper library "platform.dll" to the same folder
-  as the main.py script. You can optionally install Py2Exe and build an
-  executable, the program does however work perfectly fine using the Python
-  interpreter if you have it installed (Win32/64 Python 2.7).
+  Download the binary distribution or fetch the source, install Py2App and run
+  "python setup.py" to build DropboxURI.app (look in the dist folder).
 
-  From an admin prompt run:
+  Copy DropboxURI.app into the /Applications folder. You need run this
+  application at least once before it will trigger on Dropbox links so go ahead
+  and double-click on it (it runs silently so nothing will happen).
 
-  python main.py [/install] [/uninstall]
+  Add a menu-item to the Finder right-click menu for generating Dropbox URIs
+  using Automator:
 
-  OR
+  - Launch Automator, create new service, from the "Library" choose "Utilities"
+    and drag and drop "Run shell script" to the workflow.
 
-  dropbox.exe [/install] [/uninstall]
+  - Set "Services recieves selected" to "files and folders" and limit the
+    applications to "Finder".
 
-Usage:
+  - In the "Run Shell Script" pane set "pass input" to "as arguments" and paste
+    the following line into text area (change the path if needed):
+
+      open -a /Applications/DropboxURI.app "$@"
+
+  - Hit Cmd+S and select a name for the action (e.g. Copy Dropbox URI).
+
+OSX usage:
+
+  - Right-click on an item in a shared folder and select the "Copy Dropbox URI"
+    menu entry. Links are generated and placed in the clipboard.
+
+  - Paste the clipboard content in Gmail or your IM client.
+
+  - Clicking on a Dropbox link (URI) will open a new Finder window which has
+    the item selected.
+
+Windows installation:
+
+  Download and run the installer (setup.exe) OR follow these instructions:
+
+  Fetch the source, build and copy the platform wapper library "platform.dll"
+  to the same folder as the main.py script. You need Python 2.6+ and Py2Exe to
+  build the executable using "python setup.py".
+
+  To install the right-click menu entry and register the URI handler run the
+  following from an (elevated) admin propmpt:
+
+  DropboxUri.exe [/install] [/uninstall]
+
+Windows usage:
 
   - Right-click on an item in a shared folder, navigate to the "Send To" menu
     and select "Copy Dropbox URI". Links are generated and placed in the
@@ -75,8 +104,8 @@ Usage:
 
   - Paste the clipboard content in Gmail or your IM client.
 
-  - Clicking on a Dropbox link (URI) will open a new Explorer/Finder windows
-    which has the item selected.
+  - Clicking on a Dropbox link (URI) will open a new Explorer window which has
+    the item selected.
 
 Techincal:
 
@@ -94,3 +123,5 @@ allows browsers and other applications to trigger our program (handler) so that
 we can look up the item and possible navigate to it. The remaning stuff is
 basically base64(shared folder namespace id, item relative path) which we use
 to determine to correct path.
+
+The End.
