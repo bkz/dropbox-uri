@@ -37,12 +37,12 @@ issues.
 ## Example:
 
   - Right clicking on ~/Dropbox/Shared/Folder/Item.ext woud generate a Dropbox
-  URI similar to this which you can paste into an email:
+    URI similar to this which you can paste into an email: 
 
-     <a href='dropbox:Njk1NDEz...HYqNmKLnR4dA'>/Folder/Item.ext</a>
+    [/Folder/Item.ext](#) -> dropbox:fhksd838ejsfg3g3489ffh38hf
 
   - Clicking on this link will locate the shared folder on the reciever end and
-  select the mathcing file or directory.
+    select the mathcing file or directory.
 
 ## Disclaimer:
 
