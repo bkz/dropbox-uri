@@ -119,7 +119,7 @@ def setup(rootdir, is_frozen, script_path=None):
         # Pass 1: check if workflow exists and points to correct .app
         if os.path.exists(target):
             if open(workflow_script, "rt").read().find(app) == -1:
-                logging.debug("Automator workflow path incorrect, reinstall")
+                logging.debug("Automator workflow path incorrect, deleting")
                 shutil.rmtree(target)
             else:
                 logging.debug("Automator workflow up-to-date")
@@ -130,6 +130,7 @@ def setup(rootdir, is_frozen, script_path=None):
                 source = os.path.join(rootdir, "../Resources/Copy Dropbox URI.workflow")
                 shutil.copytree(source, target)
                 # Patch the workflow script to point to the correct .app
+                logging.debug("Patching workflow -> %s" % app.encode("utf-8"))
                 content = open(workflow_script, "rt").read()
                 open(workflow_script, "wt").write(content.replace("/Applications/DropboxURI.app", app))
             else:
