@@ -9,7 +9,7 @@ Link" is pretty broken as well since it gives you a (public!) shortened URL
 which will re-download the item instead of pointing directly to copy you
 already have in your local Dropbox folder.
 
-Design goals:
+## Design goals:
 
   - Sender should be able to navigate to a shared folder, select a sub-set of
     items (files and folders) and be able share a set of links via Gmail.
@@ -32,7 +32,7 @@ item selected. Note: we won't execute or open the selected item with its
 associated program to keep things simple and not introduce possible security
 issues.
 
-Example:
+## Example:
 
   - Right clicking on ~/Dropbox/Shared/Folder/Item.ext woud generate a Dropbox
   URI similar to this which you can paste into an email:
@@ -42,13 +42,13 @@ Example:
   - Clicking on this link will locate the shared folder on the reciever end and
   select the mathcing file or directory.
 
-Disclaimer:
+## Disclaimer:
 
 Binaries are available but you should really build this yourself, I'm not that
 keen on maintaing this for public usage. I'd rather have the Dropbox team
 implement this feature for everyone :)
 
-OSX installation:
+## OSX installation:
 
   Download the binary distribution or fetch the source, install Py2App and run
   "python setup.py" to build DropboxURI.app (look in the dist folder).
@@ -73,7 +73,7 @@ OSX installation:
 
   - Hit Cmd+S and select a name for the action (e.g. Copy Dropbox URI).
 
-OSX usage:
+### OSX usage:
 
   - Right-click on an item in a shared folder and select the "Copy Dropbox URI"
     menu entry. Links are generated and placed in the clipboard.
@@ -83,7 +83,7 @@ OSX usage:
   - Clicking on a Dropbox link (URI) will open a new Finder window which has
     the item selected.
 
-Windows installation:
+## Windows installation:
 
   Download and run the installer (setup.exe) OR follow these instructions:
 
@@ -96,7 +96,7 @@ Windows installation:
 
   DropboxUri.exe [/install] [/uninstall]
 
-Windows usage:
+### Windows usage:
 
   - Right-click on an item in a shared folder, navigate to the "Send To" menu
     and select "Copy Dropbox URI". Links are generated and placed in the
@@ -107,7 +107,7 @@ Windows usage:
   - Clicking on a Dropbox link (URI) will open a new Explorer window which has
     the item selected.
 
-Techincal:
+## Techincal:
 
 The prototype should handle shared folders properly as it creates the URI by
 combining the namespace ID from the mount_table and a relative path for the
@@ -124,4 +124,4 @@ we can look up the item and possible navigate to it. The remaning stuff is
 basically base64(shared folder namespace id, item relative path) which we use
 to determine to correct path.
 
-The End.
+## The End.
