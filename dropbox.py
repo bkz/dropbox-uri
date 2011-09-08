@@ -1,7 +1,7 @@
 import os, sys
 import logging
-import shutil
 import sqlite3
+import re
 
 PROGRAM_TITLE = "Copy Dropbox URI"
 PROTOCOL_URI_PREFIX = "dropbox:"
@@ -92,9 +92,9 @@ def encode_dropbox_uri(namespace, path):
     return uri_b64encode(data.encode("utf-8"))
 
 
-def is_valid_dropbox_uri(s):
+def is_valid_dropbox_uri(arg):
     if arg.startswith(PROTOCOL_URI_PREFIX):
-        uri = uri[len(PROTOCOL_URI_PREFIX):]
+        uri = arg[len(PROTOCOL_URI_PREFIX):]
         return re.match(r"^[a-z0-9_\-]+$", uri, re.I) != None
     else:
         return False
@@ -105,17 +105,10 @@ def is_valid_dropbox_uri(s):
 ###########################################################################
 
 def main(rootdir, is_frozen, script_path):
+    if not is_frozen:
+        logging.warning("Not running in frozen mode")
     try:
-        if "/install" in sys.argv:
-            if not platform.is_admin():
-                raise DropboxWarning("Need admin right to install program")
-            platform.install(rootdir, is_frozen, script_path)
-            sys.exit(0)
-        if "/uninstall" in sys.argv:
-            if not platform.is_admin():
-                raise DropboxWarning("Need admin right to uninstall program")
-            platform.uninstall(rootdir)
-            sys.exit(0)
+        platform.setup(rootdir, is_frozen, script_path)
 
         shared_folders = get_dropbox_shared_folders()
 

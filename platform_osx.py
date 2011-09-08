@@ -1,6 +1,7 @@
 import os, sys
-import subprocess
 import logging
+import subprocess
+import shutil
 
 ###########################################################################
 # Helper scripts.
@@ -105,14 +106,34 @@ def is_admin():
 
 
 ###########################################################################
-# Platform specific install/uninstall actions (requires admin rights).
+# Platform specific setup actions (bootstrap Automator).
 ###########################################################################
 
-def install(rootdir, is_frozen, script_path=None):
-    pass
+from platform import mac_ver
 
-def uninstall(rootdir):
-    pass
+def setup(rootdir, is_frozen, script_path=None):
+    if is_frozen:
+        app = os.path.abspath(os.path.join(rootdir, "../../"))
+        target = os.path.join(os.path.expanduser("~/Library/Services/Copy Dropbox URI.workflow"))
+        workflow_script = os.path.join(target, "Contents/document.wflow")
+        # Pass 1: check if workflow exists and points to correct .app
+        if os.path.exists(target):
+            if open(workflow_script, "rt").read().find(app) == -1:
+                logging.debug("Automator workflow path incorrect, reinstall")
+                shutil.rmtree(target)
+            else:
+                logging.debug("Automator workflow up-to-date")
+        # Pass 2: possible install or re-install workflow if out-of-date
+        if not os.path.exists(target):
+            if mac_ver()[0] == "10.7":
+                logging.debug("Installing Automator workflow")
+                source = os.path.join(rootdir, "../Resources/Copy Dropbox URI.workflow")
+                shutil.copytree(source, target)
+                # Patch the workflow script to point to the correct .app
+                content = open(workflow_script, "rt").read()
+                open(workflow_script, "wt").write(content.replace("/Applications/DropboxURI.app", app))
+            else:
+                logging.warning("Can't install workflow on OSX < 10.7")
 
 
 ###########################################################################

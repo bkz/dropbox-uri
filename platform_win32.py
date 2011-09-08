@@ -244,6 +244,21 @@ def uninstall(rootdir):
         os.remove(shortcut)
 
 
+def setup(rootdir, is_frozen, script_path=None):
+    if "/install" in sys.argv:
+        if is_admin():
+            install(rootdir, is_frozen, script_path)
+        else:
+            logging.error("Need admin rights to install")
+        sys.exit(0)
+    if "/uninstall" in sys.argv:
+        if is_admin():
+            uninstall(rootdir)
+        else:
+            logging.error("Need admin rights to uninstall")
+        sys.exit(0)
+
+
 ###########################################################################
 # The End.
 ###########################################################################
