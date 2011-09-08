@@ -13,7 +13,7 @@ PROTOCOL_URI_PREFIX = "dropbox:"
 if sys.platform == "win32":
     import platform_win32 as platform
 elif sys.platform == "darwin":
-    import platform_osx as platform
+    import platform_mac as platform
 else:
     raise NotImplementedError("Unsupported platform")
 
@@ -105,8 +105,6 @@ def is_valid_dropbox_uri(arg):
 ###########################################################################
 
 def main(rootdir, is_frozen, script_path):
-    if not is_frozen:
-        logging.warning("Not running in frozen mode")
     try:
         platform.setup(rootdir, is_frozen, script_path)
 
