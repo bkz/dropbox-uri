@@ -17,6 +17,30 @@ on run {filename}
 end run
 """
 
+ALERT_DIALOG_SCRIPT = """\
+tell application "Finder"
+    delay 0
+    activate
+    display dialog "%(message)s" with title "%(title)s" buttons {"OK"} default button 1 with icon %(icon)s giving up after %(timeout)d
+end tell
+"""
+
+###########################################################################
+# Utilities.
+###########################################################################
+
+def show_message_box(title, message, icon=1, timeout=30):
+    """
+    Display a simple alert dialog with ``title`` and ``message`` and an
+    optional icon ('stop' or 'caution') and ``timeout`` limit in seconds.
+    """
+    p = subprocess.Popen(["osascript", "-"], stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate(ALERT_DIALOG_SCRIPT %
+                                   dict(title=title.replace('"', '\\"'),
+                                        message=message.replace('"', '\\"'),
+                                        icon=icon, timeout=timeout))
+
 
 ###########################################################################
 # Module public interface..
@@ -89,6 +113,7 @@ def show_info_message(title, message):
     Show simple modal OS specific messagebox/dialog with info message.
     """
     logging.debug("Info %s" % message.encode("utf-8"))
+    show_message_box(title, message)
 
 
 def show_warning_message(title, message):
@@ -96,6 +121,7 @@ def show_warning_message(title, message):
     Show simple modal OS specific messagebox/dialog with warning message.
     """
     logging.debug("Warning %s" % message.encode("utf-8"))
+    show_message_box(title, message, icon="caution")
 
 
 def show_error_message(title, message):
@@ -103,6 +129,7 @@ def show_error_message(title, message):
     Show simple modal OS specific messagebox/dialog with error message.
     """
     logging.debug("Error %s" % message.encode("utf-8"))
+    show_message_box(title, message, icon="stop")
 
 
 def is_admin():
@@ -115,6 +142,8 @@ def is_admin():
 ###########################################################################
 # Platform specific setup actions (bootstrap Automator).
 ###########################################################################
+
+MIN_OSX_VER = 10.6
 
 from platform import mac_ver
 
@@ -132,16 +161,18 @@ def setup(title, rootdir, is_frozen, script_path=None):
                 logging.debug("Automator workflow up-to-date")
         # Pass 2: possible install or re-install workflow if out-of-date
         if not os.path.exists(target):
-            if mac_ver()[0] == "10.7":
-                logging.debug("Installing Automator workflow")
+            osx_ver = float(".".join(mac_ver()[0].split(".")[:2])) # "x.y.z" -> float(x.y)
+            if osx_ver >= MIN_OSX_VER:
+                logging.debug("Installing Automator workflow on %s" % osx_ver)
                 source = os.path.join(rootdir, "../Resources/Copy Dropbox URI.workflow")
                 shutil.copytree(source, target)
                 # Patch the workflow script to point to the correct .app
                 logging.debug("Patching workflow -> %s" % app.encode("utf-8"))
                 content = open(workflow_script, "rt").read()
                 open(workflow_script, "wt").write(content.replace("/Applications/DropboxURI.app", app))
+                show_info_message(title, "Successfully installed plugin!")
             else:
-                logging.warning("Can't install workflow on OSX < 10.7")
+                show_error_message("Sorry, Mac OS X %s is not supported!" % osx_ver)
 
 
 ###########################################################################
