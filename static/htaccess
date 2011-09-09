@@ -6,4 +6,4 @@ AddDefaultCharset utf-8
 
 # Rewrite links and pass them to the URI opener.
 RewriteEngine on
-RewriteRule ^([a-zA-Z_\-]+)$ open.html?$1 [L]
+RewriteRule ^([0-9a-zA-Z_\-]+)$ open.html?$1 [L]
