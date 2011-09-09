@@ -1,5 +1,3 @@
-*Work in progress*
-
 ## Overview
 
 This is a proof of concept prototype which implements a URI sharing mechanism
@@ -43,12 +41,6 @@ issues.
 
   - Clicking on this link will locate the shared folder on the reciever end and
     select the mathcing file or directory.
-
-## Disclaimer:
-
-Binaries are available but you should really build this yourself, I'm not that
-keen on maintaing this for public usage. I'd rather have the Dropbox team
-implement this feature for everyone :)
 
 ## OSX installation:
 
