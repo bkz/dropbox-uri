@@ -3,4 +3,6 @@ build
 dist
 temp
 platform.dll
+dropbox-uri.exe
+setup.nsi
 *.pyc
