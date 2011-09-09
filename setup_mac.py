@@ -14,7 +14,7 @@ AUTHOR_URL    = "http://www.sharedropbox.com/"
 ICON_FILE     = "dropbox.icns"
 MAIN_SCRIPT   = "main.py"
 PRODUCT_NAME  = "DropboxURI"
-VERSION       = "0.1"
+VERSION       = "0.2"
 
 ###########################################################################
 # Target OSX.

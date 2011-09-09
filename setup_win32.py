@@ -20,7 +20,7 @@ ICON_FILE     = "dropbox.ico"
 INSTALLER_EXE = "dropbox-uri.exe"
 MAIN_SCRIPT   = "main.py"
 PRODUCT_NAME  = "DropboxURI"
-VERSION       = "0.1"
+VERSION       = "0.2"
 VERSIONSTRING = "%s %s" % (PRODUCT_NAME, VERSION)
 
 ###########################################################################
