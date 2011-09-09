@@ -84,6 +84,13 @@ def explore_path(filename):
     stdout, stderr = p.communicate(FINDER_SELECT_SCRIPT)
 
 
+def show_info_message(title, message):
+    """
+    Show simple modal OS specific messagebox/dialog with info message.
+    """
+    logging.debug("Info %s" % message.encode("utf-8"))
+
+
 def show_warning_message(title, message):
     """
     Show simple modal OS specific messagebox/dialog with warning message.
@@ -111,7 +118,7 @@ def is_admin():
 
 from platform import mac_ver
 
-def setup(rootdir, is_frozen, script_path=None):
+def setup(title, rootdir, is_frozen, script_path=None):
     if is_frozen:
         app = os.path.abspath(os.path.join(rootdir, "../../"))
         target = os.path.join(os.path.expanduser("~/Library/Services/Copy Dropbox URI.workflow"))

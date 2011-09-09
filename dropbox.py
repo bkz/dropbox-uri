@@ -106,7 +106,7 @@ def is_valid_dropbox_uri(arg):
 
 def main(rootdir, is_frozen, script_path):
     try:
-        platform.setup(rootdir, is_frozen, script_path)
+        platform.setup(PROGRAM_TITLE, rootdir, is_frozen, script_path)
 
         shared_folders = get_dropbox_shared_folders()
 

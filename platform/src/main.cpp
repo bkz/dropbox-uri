@@ -296,6 +296,13 @@ extern "C"
 		return (bSuccess == TRUE);
 	}	
 
+    DLLEXPORT int show_info_message(const wchar_t* title, const wchar_t* msg)
+    {
+        ::MessageBox(HWND_DESKTOP, msg, title, MB_OK|MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND);
+
+        return 0;
+    }
+
     DLLEXPORT int show_warning_message(const wchar_t* title, const wchar_t* msg)
     {
         ::MessageBox(HWND_DESKTOP, msg, title, MB_OK|MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND);

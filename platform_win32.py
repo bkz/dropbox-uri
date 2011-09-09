@@ -37,6 +37,12 @@ _explore_path = CDLL(shared_lib).explore_path
 _explore_path.restype = c_int
 _explore_path.argtypes = [c_wchar_p] # filename
 
+_show_info_message = CDLL(shared_lib).show_info_message
+_show_info_message.restype = c_int
+_show_info_message.argtypes = [
+    c_wchar_p, # title
+    c_wchar_p] # message
+
 _show_warning_message = CDLL(shared_lib).show_warning_message
 _show_warning_message.restype = c_int
 _show_warning_message.argtypes = [
@@ -192,6 +198,13 @@ def explore_path(filename):
     return _explore_path(filename)
 
 
+def show_info_message(title, message):
+    """
+    Show simple modal OS specific messagebox/dialog with info message.
+    """
+    return _show_info_message(title, message)
+
+
 def show_warning_message(title, message):
     """
     Show simple modal OS specific messagebox/dialog with warning message.
@@ -244,18 +257,20 @@ def uninstall(rootdir):
         os.remove(shortcut)
 
 
-def setup(rootdir, is_frozen, script_path=None):
+def setup(title, rootdir, is_frozen, script_path=None):
     if "/install" in sys.argv:
         if is_admin():
             install(rootdir, is_frozen, script_path)
+            show_info_message(title, "Successfully installed plugin!")
         else:
-            logging.error("Need admin rights to install")
+            show_error_message(title, "Need admin rights to install")
         sys.exit(0)
     if "/uninstall" in sys.argv:
         if is_admin():
             uninstall(rootdir)
+            show_info_message(title, "Successfully uninstalled plugin!")
         else:
-            logging.error("Need admin rights to uninstall")
+            show_error_message(title, "Need admin rights to uninstall")
         sys.exit(0)
 
 
