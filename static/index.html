@@ -2,7 +2,10 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Share Dropbox</title>
+  <title>Share Dropbox URI</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="js/jquery.lightbox-0.5.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
 <style>
 body {
    background:#ccc;
@@ -17,6 +20,8 @@ h1 {
    font-family: Helvetica, Arial, sans-serif;
 }
 
+img { border: 1px solid black; }
+
 a:link, a:visited, a:active, a:hover {
   color: blue;
   text-decoration: none;
@@ -26,9 +31,9 @@ a:link, a:visited, a:active, a:hover {
   border: 4px solid #888;
   border-radius: 10px;
   margin:0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 20px;
-  width:540px;
+  width:720px;
   background: white;
   display:block;
   opacity:0.95;
@@ -36,11 +41,19 @@ a:link, a:visited, a:active, a:hover {
 
 #message {
   border:3px dashed #aaa;
-  height:400px;
+  height:420px;
   margin-top:30px;
   margin-bottom:10px;
-  padding: 30px;
-  width:480px;
+  padding: 20px;
+  width:640px;
+}
+
+#osx {
+  color: #888;
+  font-family: arial, helvetica, sans-serif;
+  font-size: small;
+  line-height: 110%;
+  margin-top: 20px;
 }
 
 #copyright {
@@ -59,8 +72,9 @@ a:link, a:visited, a:active, a:hover {
 </head>
 <body>
 
+
 <div id="content" align="center">
-  <h1>Share Dropbox Links</h1>
+  <h1>Share Dropbox URI</h1>
   <div id="message">
     Working in a team-environment with shared folders? Used to manually typing
     file locations or doing the copy/paste routine when you need to point
@@ -72,22 +86,32 @@ a:link, a:visited, a:active, a:hover {
 
     <br/></br>
 
-    Install a simple plugin which allows you to right-click on a file or folder
-    in a shared directory and create a secure link which is only accessable by
-    people who have physical access to it.
+    Install a plugin which allows you to right-click on a file or directory in
+    a shared Dropbox folder and create a secure link which you can share with
+    people on your team.
+
+    <br/></br>
+
+    <a class="lightbox" title="Step 1) Right click and copy link to clipboard."
+       href="screenshots/win1.jpg"><img src="screenshots/win1.jpg" width="72" height="72" alt="" /></a>
+    <a class="lightbox" title="Step 2) Paste in Gmail or share via IM"
+       href="screenshots/win2.jpg"><img src="screenshots/win2.jpg" width="72" height="72" alt="" /></a>
+    <a class="lightbox" title="Step 3) Team-member clicks and navigates to the file."
+       href="screenshots/win3.jpg"><img src="screenshots/win3.jpg" width="72" height="72" alt="" /></a>
+    <a class="lightbox" title="Step 4) Finder/Explorer opens with the file selected."
+       href="screenshots/win4.jpg"><img src="screenshots/win4.jpg" width="72" height="72" alt="" /></a>
 
     <br/></br>
 
     You can paste the link in Gmail or share via IM and the reciever will be
     presented with a Finder/Explorer window with the file or folder selected
-    when she clicks on it.
+    when he/she clicks on it.
 
     <br/><br/>
     Install the plugin: <br/>
     <a href="https://github.com/downloads/bkz/dropbox-uri/dropbox-uri.exe">Windows</a>&nbsp;|&nbsp;
     <a href="https://github.com/downloads/bkz/dropbox-uri/dropbox-uri-mac.zip">Mac</a>
-    <br/></br>
-    <small>OS X Lion (10.7) required for the Mac version.</small>
+    <p id="osx">OS X Lion (10.7) required for the Mac version.</p>
   </div>
   <div id="copyright" align="center">
     <a href="http://www.zafar.se/share-dropbox.html">Share Dropbox</a> by <a href="https://twitter.com/#!/bkzafar">@bkzafar</a>.
@@ -98,6 +122,12 @@ a:link, a:visited, a:active, a:hover {
     Open-sourced at <a href="https://github.com/bkz/dropbox-uri">GitHub</a>
   </div>
 </div>
+
+<script type="text/javascript">
+$(function() {
+  $('a.lightbox').lightBox();
+});
+</script>
 
 </body>
 </html>
