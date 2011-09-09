@@ -125,6 +125,19 @@ we can look up the item and possible navigate to it. The remaning stuff is
 basically base64(shared folder namespace id, item relative path) which we use
 to determine to correct path.
 
+Since we want to be able to paste the links where ever HTML is accepted we
+fallback to using standard HTML links with a simply webservice since many
+applications dont't allow or won't parse raw protocol URIs correctly. Browsers
+will handle our URIs correctly so we'll simply let the browser trigger the
+protocol handler instead of relying on the transport medium (Gmail, IM, etc):
+
+1. Generate URI -> dropbox:34fsd23s089d...
+
+2. Embed URI in webservice URL -> http://www.sharedropbox.com/34fsd23s089d...
+
+3. Reconstruct URI in browser and let it trigger the local protocol handler
+   (and offer the user to install the handler if he/she hasn't done so).
+
 ## The End.
 
 [s1]: https://github.com/bkz/dropbox-uri/raw/master/doc/osx1.png
