@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Open Dropbox URI</title>
+  <title>Shared Dropbox Link</title>
 <style>
 body {
    background:#ccc;
@@ -60,11 +60,11 @@ a:link, a:visited, a:active, a:hover {
 <body onload="if (havePlugin) confirm();">
 
 <div id="content" align="center">
-  <h1>Open Dropbox Link</h1>
+  <h1>Shared Dropbox Link</h1>
   <div id="message">
-    Already have the Dropbox share plugin?
+    Already have the Share Dropbox plugin?
     </br>
-    <a onclick="confirm(); return false;" href="#">Click here to open the link</a>
+    <a onclick="confirm(); return false;" href="#">Click here to show the file/folder</a>
     <br/><br/>
     <b>OR</b>
     <br/><br/>
@@ -74,7 +74,7 @@ a:link, a:visited, a:active, a:hover {
     <a href="https://github.com/downloads/bkz/dropbox-uri/dropbox-uri-osx.tar.gz">Mac</a>
   </div>
   <div id="copyright" align="center">
-    <a href="http://www.zafar.se/share-dropbox.html">Share Dropbox URI</a> by <a href="https://twitter.com/#!/bkzafar">@bkzafar</a>.
+    <a href="http://www.zafar.se/share-dropbox.html">Share Dropbox</a> by <a href="https://twitter.com/#!/bkzafar">@bkzafar</a>.
     <br/>
     All logos, trademarks and artwork are copyright their respective owners.
     This not endorsed, certified or otherwise approved in any way by <a href="http://www.dropbox.com">Dropbox</a>.
@@ -132,7 +132,7 @@ var base64_pat = /^[a-z0-9_\-]+$/i;
 
 function confirm() {
     $.cookie('have_dropbox_uri', 'true', { expires: 365, path: '/' });
-    var uri = window.location.search.substring(1);
+    var uri = window.location.pathname.substring(1);
     if (uri.match(base64_pat) !== null) {
         document.location.href = "dropbox:" + uri;
     } else {

@@ -123,7 +123,7 @@ def main(rootdir, is_frozen, script_path):
                 if arg.lower().startswith(shared_path):
                     rel_path = arg[len(shared_path):]
                     uri = encode_dropbox_uri(namespace, rel_path)
-                    clipboard_html.append(u"<a href='http://www.sharedropbox.com?%s'>%s</a>" % (uri, rel_path))
+                    clipboard_html.append(u"<a href='http://www.sharedropbox.com/%s'>%s</a>" % (uri, rel_path))
                     clipboard_text.append(uri)
                     break
             else:

@@ -1,0 +1,9 @@
+# Default landing page.
+DirectoryIndex index.html
+
+# We need support for full unicode encoding.
+AddDefaultCharset utf-8
+
+# Rewrite links and pass them to the URI opener.
+RewriteEngine on
+RewriteRule ^([a-zA-Z_\-]+)$ open.html?$1 [L]
