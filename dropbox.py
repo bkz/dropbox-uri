@@ -3,7 +3,7 @@ import logging
 import sqlite3
 import re
 
-PROGRAM_TITLE = "Copy Dropbox URI"
+PROGRAM_TITLE = "Share Dropbox"
 PROTOCOL_URI_PREFIX = "dropbox:"
 
 ###########################################################################
