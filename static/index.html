@@ -5,6 +5,7 @@
   <title>Share Dropbox URI</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
   <script type="text/javascript" src="js/jquery.lightbox-0.5.min.js"></script>
+  <script type="text/javascript" src="js/browser.js"></script>
   <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
 <style>
 body {
@@ -92,14 +93,14 @@ a:link, a:visited, a:active, a:hover {
 
     <br/></br>
 
-    <a class="lightbox" title="Step 1) Right click and copy link to clipboard."
-       href="screenshots/win1.jpg"><img src="screenshots/win1.jpg" width="72" height="72" alt="" /></a>
-    <a class="lightbox" title="Step 2) Paste in Gmail or share via IM"
-       href="screenshots/win2.jpg"><img src="screenshots/win2.jpg" width="72" height="72" alt="" /></a>
-    <a class="lightbox" title="Step 3) Team-member clicks and navigates to the file."
-       href="screenshots/win3.jpg"><img src="screenshots/win3.jpg" width="72" height="72" alt="" /></a>
-    <a class="lightbox" title="Step 4) Finder/Explorer opens with the file selected."
-       href="screenshots/win4.jpg"><img src="screenshots/win4.jpg" width="72" height="72" alt="" /></a>
+    <a id="screenshot_1" class="lightbox" title="Step 1) Right click and copy link to clipboard."
+       href=""><img id="thumb_1" src="" width="72" height="72" alt="" /></a>
+    <a id="screenshot_2" class="lightbox" title="Step 2) Paste in Gmail or share via IM"
+       href=""><img id="thumb_2" src="" width="72" height="72" alt="" /></a>
+    <a id="3" class="lightbox" title="Step 3) Team-member clicks and navigates to the file."
+       href=""><img id="thumb_3" src="" width="72" height="72" alt="" /></a>
+    <a id="" class="lightbox" title="Step 4) Finder/Explorer opens with the file selected."
+       href=""><img id="thumb_4" src="" width="72" height="72" alt="" /></a>
 
     <br/></br>
 
@@ -125,6 +126,27 @@ a:link, a:visited, a:active, a:hover {
 
 <script type="text/javascript">
 $(function() {
+  if (BrowserDetect.OS === "Mac") {
+    $("#thumb_1").attr("src", "screenshots/mac1.jpg");
+    $("#thumb_2").attr("src", "screenshots/mac2.jpg");
+    $("#thumb_3").attr("src", "screenshots/mac3.jpg");
+    $("#thumb_4").attr("src", "screenshots/mac4.jpg");
+
+    $("#screenshot_1").attr("href", "screenshots/mac1.jpg");
+    $("#screenshot_2").attr("href", "screenshots/mac2.jpg");
+    $("#screenshot_3").attr("href", "screenshots/mac3.jpg");
+    $("#screenshot_4").attr("href", "screenshots/mac4.jpg");
+  } else {
+    $("#thumb_1").attr("src", "screenshots/win1.jpg");
+    $("#thumb_2").attr("src", "screenshots/win2.jpg");
+    $("#thumb_3").attr("src", "screenshots/win3.jpg");
+    $("#thumb_4").attr("src", "screenshots/win4.jpg");
+
+    $("#screenshot_1").attr("href", "screenshots/win1.jpg");
+    $("#screenshot_2").attr("href", "screenshots/win2.jpg");
+    $("#screenshot_3").attr("href", "screenshots/win3.jpg");
+    $("#screenshot_4").attr("href", "screenshots/win4.jpg");
+  }
   $('a.lightbox').lightBox();
 });
 </script>
