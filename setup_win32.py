@@ -121,7 +121,7 @@ open("setup.nsi", "wt").write(
 if os.path.exists(INSTALLER_EXE):
     os.remove(INSTALLER_EXE)
 
-subprocess.call("makensis.exe setup.nsi")
+subprocess.call("makensis.exe setup.nsi", shell=True)
 
 os.rename(DEST_BASE + ".exe", INSTALLER_EXE)
 
